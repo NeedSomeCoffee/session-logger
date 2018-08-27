@@ -11,6 +11,8 @@
 
 pom.xml
 
+/target/*
+
 # Package Files #
 *.jar
 *.war
