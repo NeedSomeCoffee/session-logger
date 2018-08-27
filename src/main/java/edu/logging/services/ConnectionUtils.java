@@ -5,6 +5,8 @@ import java.util.Random;
 
 public class ConnectionUtils {
 		
+	private ConnectionUtils() {}
+	
 	public static String getTimeStamp() {
 		return String.valueOf(new Date().getTime());
 	}
