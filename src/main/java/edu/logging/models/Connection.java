@@ -1,4 +1,4 @@
-package edu.logging.app;
+package edu.logging.models;
 
 import edu.logging.services.ConnectionUtils;
 
@@ -12,6 +12,12 @@ public class Connection {
 		this.ipAddress = ipAddress;
 		
 		timeStamp = ConnectionUtils.getTimeStamp();
+	}
+
+	public Connection(String timeStamp, String session, String ipAddress) {
+		this.timeStamp = timeStamp;
+		this.session = session;
+		this.ipAddress = ipAddress;
 	}
 
 	public String getTimeStamp() {

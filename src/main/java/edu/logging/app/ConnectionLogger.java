@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import edu.logging.models.Connection;
 import edu.logging.services.ConnectionUtils;
 import edu.logging.services.FileService;
 
