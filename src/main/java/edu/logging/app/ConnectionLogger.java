@@ -4,33 +4,42 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import edu.logging.exceptions.LoggingException;
 import edu.logging.models.Connection;
-import edu.logging.services.ConnectionUtils;
 import edu.logging.services.FileService;
 
 public class ConnectionLogger {
+	private FileService writer;
 	
-	public void writeConnectionToLog (List<Connection> connections) {
-		FileService writer = new FileService("log", "log.txt");
-		
+	public ConnectionLogger() throws LoggingException {
+		writer = new FileService("log", "log.txt");
+	}
+	
+	
+	public void writeConnectionToLog (List<Connection> connections) throws LoggingException {		
 		List<String> connectionsData = connections.stream().map(Connection::getConnectionData).collect(Collectors.toList());
 		
 		writer.appendLinesToExistingFile(connectionsData);
 	}
 	
-	public static void main(String[] args) {
-		ConnectionLogger logger = new ConnectionLogger();
+	public List<Connection> getLogsForPeriod(String from, String to) throws LoggingException {
+		List<String> rawLines = writer.getDataForPeriod(from, to);
+		List<Connection> parsedConnections = new ArrayList<>();
 		
-		List<Connection> con = new ArrayList<>();
-		for(int i = 0; i < 10; i++) {
-			String ip = ConnectionUtils.getIpAddress();
-			String session = ConnectionUtils.getSessionNumber();
-
+		for(String rawConnection : rawLines) {
+			String[] connectionData = rawConnection.split(" ");
 			
-			con.add(new Connection(session, ip));
+			String timeStamp = connectionData[0];
+			String session = connectionData[1];
+			String ipAddress = connectionData[2];
+			
+			parsedConnections.add(new Connection(timeStamp, session, ipAddress));
 		}
 		
-		logger.writeConnectionToLog(con);
+		return parsedConnections;
 	}
 	
+	public void clearLogsForThreeDays() throws LoggingException {
+		writer.removeDataThreeDaysOld();
+	}
 }

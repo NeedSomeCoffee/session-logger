@@ -12,13 +12,14 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import edu.logging.exceptions.LoggingException;
 import edu.logging.models.Connection;
 
 public class FileServiceTest {
 	private static FileService fileService;
 	
 	@Before
-	public void prepareLogFile() {
+	public void prepareLogFile() throws LoggingException {
 		fileService = new FileService("log", "testLog.txt");
 				
 		List<Connection> connections = new ArrayList<>();
@@ -47,14 +48,14 @@ public class FileServiceTest {
 	}
 	
 	@Test
-	public void givenFile_WhenParsed_ShouldReturnValidConnectionCountTest() {
+	public void givenFile_WhenParsed_ShouldReturnValidConnectionCountTest() throws LoggingException {
 		List<String> selected = fileService.getAllDataInFile();
 
 		assertEquals(5, selected.size());
 	}
 	
 	@Test
-	public void givenConnections_WhenSelectedForPeriod_ShouldReturnValidTest() {
+	public void givenConnections_WhenSelectedForPeriod_ShouldReturnValidTest() throws LoggingException {
 		List<String> selected = fileService.getDataForPeriod("20/08/18 00:00", "31/08/18 00:00");
 
 		assertEquals(3, selected.size());
@@ -62,7 +63,7 @@ public class FileServiceTest {
 	
 	
 	@Test
-	public void givenConnections_WhenRemovedForPeriod_ShouldReturnValidTest() {
+	public void givenConnections_WhenRemovedForPeriod_ShouldReturnValidTest() throws LoggingException {
 		fileService.removeDataForPeriod("27/08/18 00:00", "31/08/18 00:00");
 		
 		List<String> remaining = fileService.getAllDataInFile();

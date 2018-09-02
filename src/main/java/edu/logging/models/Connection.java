@@ -1,18 +1,10 @@
 package edu.logging.models;
 
-import edu.logging.services.ConnectionUtils;
 
 public class Connection {
 	private String timeStamp;
 	private String session;
 	private String ipAddress;
-	
-	public Connection(String session, String ipAddress) {
-		this.session = session;
-		this.ipAddress = ipAddress;
-		
-		timeStamp = ConnectionUtils.getTimeStamp();
-	}
 
 	public Connection(String timeStamp, String session, String ipAddress) {
 		this.timeStamp = timeStamp;
