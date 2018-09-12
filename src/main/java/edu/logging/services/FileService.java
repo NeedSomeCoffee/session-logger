@@ -11,7 +11,6 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,9 +45,19 @@ public class FileService {
 		return declaredPath;
 	}
 
-	public void appendLinesToExistingFile(List<String> lines) throws LoggingException {
+	public void appendMultipleLinesToExistingFile(List<String> lines) throws LoggingException {
 		try {
 			Files.write(filePath, lines, StandardOpenOption.APPEND);
+
+		} catch (IOException e) {
+			throw new LoggingException("Error writing data to file ", e);
+		}
+	}
+	
+	
+	public void appendSingleLineToExistingFile(String line) throws LoggingException {
+		try {
+			Files.write(filePath, (line + "\n").getBytes(), StandardOpenOption.APPEND);
 
 		} catch (IOException e) {
 			throw new LoggingException("Error writing data to file ", e);

@@ -1,7 +1,8 @@
 # Compiled class file
 *.class
 
-# Log file
+# Log files and folders
+/log/*
 *.log
 
 # Local config files

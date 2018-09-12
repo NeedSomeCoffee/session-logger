@@ -35,7 +35,7 @@ public class FileServiceTest {
 		Connection connectionFive = new Connection("1534636800", "556476474", "255.255.255.0"); // 08/19/2018
 		connections.add(connectionFive);
 		
-		fileService.appendLinesToExistingFile(connections.stream().map(Connection::getConnectionData).collect(Collectors.toList()));
+		fileService.appendMultipleLinesToExistingFile(connections.stream().map(Connection::getConnectionData).collect(Collectors.toList()));
 	}
 	
 	@After
